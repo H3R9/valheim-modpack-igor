@@ -1,6 +1,7 @@
 # Valheim Modpack — Igor Gabriel
 
 > Coleção pessoal de mods para Valheim (v0.221.4), instalação **manual** com BepInEx 5.4.23. Layout em seções **colapsáveis** para leitura limpa.
+> Site: https://h3r9.github.io/valheim-modpack-igor/
 
 ---
 
