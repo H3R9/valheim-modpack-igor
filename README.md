@@ -1,8 +1,4 @@
----
-
 # Valheim Modpack — Guia Completo
-
-![banner](https://dummyimage.com/1600x280/111016/ffffff\&text=Valheim+Modpack+-+Guia+Completo)
 
 **Valheim** `v0.221.4` • **BepInExPack** `5.4.x` • Layout retrô (pixel), com busca/filtros no site.
 Este README acompanha o conteúdo do **site** (`index.html`) e descreve **todos os mods instalados**, inclusive bibliotecas.
@@ -490,5 +486,3 @@ Habilidade/cozinha estendida para progressão culinária mais profunda (escolha 
 * Comunidade Valheim por APIs e bibliotecas (JVL, XUnity, etc.).
 
 > ⚠️ Todos os mods pertencem aos seus respectivos autores. Este repositório apenas documenta e organiza os links e o uso dentro do jogo.
-
----
