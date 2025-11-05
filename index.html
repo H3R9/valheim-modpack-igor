@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Valheim Modpack — Guia (Igor)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0f1216;          /* noite viking */
+    --panel: #151a21;       /* rocha escura */
+    --ink: #d0e0ff;         /* runa fria */
+    --muted:#9bb3d5;        /* névoa */
+    --accent:#7ee0ff;       /* gelo mágico */
+    --accent2:#ffb057;      /* âmbar */
+    --ok:#6df0a3;           /* verde */
+    --bad:#ff6b6b;          /* vermelho */
+    --card:#11161d;         /* cartão */
+    --chip:#1b2330;         /* chip */
+  }
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background: linear-gradient(180deg,var(--bg),#0b0e12 60%, #090b0f 100%);
+    color:var(--ink);
+    font-family: 'VT323', monospace;
+    letter-spacing: 0.2px;
+    font-size: 20px;
+  }
+  header{
+    position:relative; overflow:hidden; isolation:isolate;
+    background:linear-gradient(135deg,#10151c 0%, #0e1a24 100%);
+    border-bottom: 2px solid #0b1118;
+  }
+  .hero{
+    max-width:1200px; margin:0 auto; padding:48px 16px 28px;
+    display:grid; grid-template-columns:1fr; gap:12px;
+  }
+  .title{font-family:'Press Start 2P', cursive; font-size: clamp(18px,4vw,28px); line-height:1.4;}
+  .subtitle{color:var(--muted);font-size:20px}
+  .triangles{position:absolute; inset:0; opacity:.22; pointer-events:none;}
+  .triangles svg{width:100%; height:100%; display:block;}
+
+  .bar{
+    max-width:1200px; margin:-22px auto 18px; padding:10px 16px 0;
+    display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+  }
+  .input{
+    background:var(--panel); color:var(--ink);
+    border:2px solid #0c1220; border-radius:10px; padding:10px 12px; min-width:240px;
+  }
+  .btn{cursor:pointer; user-select:none; border:2px solid #0c1220; background:var(--chip); color:var(--ink);
+       padding:10px 12px; border-radius:10px; font-family:'Press Start 2P', cursive; font-size:12px; letter-spacing:0.5px;}
+  .btn:hover{filter:brightness(1.15)}
+  .btn-accent{background:linear-gradient(90deg,var(--accent2),var(--accent)); color:#04202b}
+
+  main{max-width:1200px; margin:0 auto; padding:8px 16px 64px;}
+  .grid{display:grid; grid-template-columns:1fr; gap:12px}
+
+  details.mod{
+    background: linear-gradient(180deg, var(--card), #0e141c);
+    border:2px solid #0b1118; border-radius:16px; padding:0 0 0;
+    box-shadow: 0 2px 0 #0b1118, 0 12px 24px rgba(0,0,0,.25);
+  }
+  details[open].mod{outline:2px solid #1e2b3d}
+  summary{
+    list-style:none; padding:16px; display:flex; gap:10px; align-items:center;
+    cursor:pointer;
+  }
+  summary::-webkit-details-marker{display:none}
+  .pill{font-family:'Press Start 2P', cursive; font-size:10px; letter-spacing:.5px; background:var(--chip); color:var(--muted); padding:6px 8px; border-radius:8px; border:1px solid #0c1220}
+  .name{font-family:'Press Start 2P', cursive; font-size:14px; color:var(--ink)}
+  .version{color:var(--muted); font-size:14px}
+  .body{padding:0 16px 16px;}
+  .row{display:flex; gap:14px; flex-wrap:wrap}
+  .card{flex:1 1 280px; background:var(--panel); border:1px solid #0c1220; border-radius:12px; padding:12px}
+  .card h4{margin:0 0 6px 0; font-family:'Press Start 2P', cursive; font-size:12px; color:var(--accent)}
+  .muted{color:var(--muted)}
+  .links a{display:inline-block; margin-right:8px; margin-bottom:6px; text-decoration:none; color:var(--accent2); border-bottom:1px dashed var(--accent2)}
+  .footer{margin-top:40px; border-top:2px solid #0b1118; padding-top:16px; color:var(--muted)}
+  .chips{display:flex; gap:8px; flex-wrap:wrap}
+
+  /* low‑poly separators */
+  .sep{height:14px; background:
+    linear-gradient(135deg, transparent 25%, rgba(255,255,255,.03) 25% 50%, transparent 50% 75%, rgba(255,255,255,.03) 75%),
+    linear-gradient(45deg, transparent 25%, rgba(255,255,255,.03) 25% 50%, transparent 50% 75%, rgba(255,255,255,.03) 75%);
+    background-size:16px 16px; opacity:.5; border-radius:8px; margin:6px 0 10px}
+
+  .legend{display:flex; gap:8px; flex-wrap:wrap; margin: 0 16px 16px}
+  .legend .pill{opacity:.9}
+
+  @media(min-width:720px){
+    .grid{grid-template-columns:1fr 1fr}
+  }
+  @media(min-width:1024px){
+    .grid{grid-template-columns:1fr 1fr 1fr}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="triangles" aria-hidden="true">
+      <svg viewBox="0 0 800 200" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stop-color="#0a1420"/>
+            <stop offset="100%" stop-color="#152233"/>
+          </linearGradient>
+        </defs>
+        <polygon points="0,200 120,120 240,200" fill="url(#g1)"/>
+        <polygon points="240,200 360,110 480,200" fill="url(#g1)"/>
+        <polygon points="480,200 600,130 800,200" fill="url(#g1)"/>
+      </svg>
+    </div>
+    <div class="hero">
+      <div class="title">Valheim Modpack — Guia Completo</div>
+      <div class="subtitle">Layout retrô (pixel), colapsável, com busca + links diretos / pesquisas.</div>
+    </div>
+  </header>
+
+  <div class="bar">
+    <input id="q" class="input" placeholder="Buscar mod, categoria, palavra‑chave…"/>
+    <button class="btn" id="btn-exp">Expandir tudo</button>
+    <button class="btn" id="btn-col">Recolher tudo</button>
+    <button class="btn btn-accent" id="btn-copy">Copiar lista</button>
+  </div>
+
+  <div class="legend">
+    <span class="pill">Biblioteca</span>
+    <span class="pill">QoL</span>
+    <span class="pill">Conteúdo</span>
+    <span class="pill">UI/HUD</span>
+    <span class="pill">Automação</span>
+    <span class="pill">Skills</span>
+  </div>
+
+  <main>
+    <div id="mods" class="grid"></div>
+
+    <div class="footer">
+      <div class="sep"></div>
+      <p>💾 Dica: aperte <b>F1</b> no jogo para abrir o <b>Configuration Manager</b> e ver/alterar atalhos e opções de cada mod.</p>
+      <p>🌐 Links Nexus/Thunderstore podem variar por autor/versão. Onde não há página oficial, deixei <b>buscas diretas</b> pré‑preenchidas no Thunderstore, Nexus e Google.</p>
+    </div>
+  </main>
+
+<script>
+// =========================
+// DADOS — seus mods (do log)
+// =========================
+const DATA = [
+  {name:"CartographySkill",version:"3.1.1",cats:["QoL","Skills"],
+    summary:"Habilidade/qualidade‑de‑vida para cartografia e compartilhamento/gestão do mapa.",
+    usage:"Use a Mesa de Cartografia normalmente; o mod melhora a experiência de registrar/compartilhar explorações.",
+    hotkeys:"Configurável via F1 › CartographySkill."
+  },
+  {name:"PlantEasily",version:"2.0.3",cats:["QoL","Automação"],
+    summary:"Facilita plantio (alinhamento, espaçamento e rotação) para linhas perfeitas.",
+    usage:"Com a enxada/fertilidade na mão, posicione e plante; o mod ajuda com snapping e grid.",
+    hotkeys:"F1 › PlantEasily."
+  },
+  {name:"PlantEverything",version:"1.20.0",cats:["Conteúdo","Farming"],
+    summary:"Permite plantar quase tudo (frutas, cogumelos, cardos etc.) em canteiros/cultivos.",
+    usage:"Desbloqueia receitas de plantio no jogo (sementeiras, canteiros). Leia cada semente no inventário para ver requisitos.",
+    hotkeys:"—"
+  },
+  {name:"Spyglass",version:"3.1.1",cats:["QoL"],
+    summary:"Luneta: zoom para observar locais/inimigos a distância.",
+    usage:"Equipe a luneta como item e use botões do mouse para mirar.",
+    hotkeys:"Config. de zoom via F1 › Spyglass."
+  },
+  {name:"StumpsRegrow",version:"1.0.4",cats:["QoL","Farming"],
+    summary:"Tocos rebrotem em árvores com o tempo se não forem removidos.",
+    usage:"Apenas deixe o toco após cortar; ele pode virar árvore novamente.",
+    hotkeys:"—"
+  },
+  {name:"Auto Fuel",version:"1.3.1",cats:["Automação","QoL"],
+    summary:"Abastece automaticamente fornos, fornalhas, lareiras a partir de baús próximos.",
+    usage:"Deixe combustível (madeira/carvão) em baús ao alcance; os prédios puxam sozinhos.",
+    hotkeys:"F1 › Auto Fuel."
+  },
+  {name:"CookingStationTweaks",version:"0.7.1",cats:["QoL","Automação"],
+    summary:"Ajusta estações de cozimento (mais slots, tempos, queimar opcional).",
+    usage:"Construa/abra a estação; aproveite mais ganchos e tempos ajustados.",
+    hotkeys:"— (opções no F1)"
+  },
+  {name:"AzuAntiArthriticCrafting",version:"2.1.4",cats:["QoL"],
+    summary:"Craftar usando recursos de baús próximos (adeus clique repetitivo).",
+    usage:"Perto de baús, abra a bancada e craft normal — puxa dos baús.",
+    hotkeys:"—"
+  },
+  {name:"Configuration Manager",version:"18.4.1",cats:["Biblioteca","QoL"],
+    summary:"Painel universal de configs. Aperte F1 no jogo.",
+    usage:"F1 abre o painel; procure o nome do mod e ajuste as opções/atalhos.",
+    hotkeys:"F1 abre/fecha."
+  },
+  {name:"Jotunn (JVL)",version:"2.27.0",cats:["Biblioteca"],
+    summary:"Framework de mods (requisito de vários).",
+    usage:"Necessário em /BepInEx/plugins. Sem interface própria.",
+    hotkeys:"—"
+  },
+  {name:"YamlDotNet Detector",version:"1.0.0",cats:["Biblioteca"],
+    summary:"Biblioteca YAML para suporte de configs/itens.",usage:"—",hotkeys:"—"},
+  {name:"Adventure Backpacks",version:"1.9.7",cats:["Conteúdo","QoL"],
+    summary:"Mochilas com slots/efeitos; melhora transporte.",
+    usage:"Crie a mochila na bancada apropriada (veja receituário). Equipe no slot dedicado.",
+    hotkeys:"—"
+  },
+  {name:"Better Archery",version:"1.9.81",cats:["QoL","Gameplay"],
+    summary:"Arcos mais profundos: flechas recuperáveis, física e aljava.",
+    usage:"Use arcos/flechas normalmente; novas mecânicas são aplicadas automaticamente.",
+    hotkeys:"—"
+  },
+  {name:"AzuExtendedPlayerInventory",version:"1.4.12",cats:["QoL"],
+    summary:"Aumenta o inventário do jogador (mais linhas/slots).",
+    usage:"Inventário maior assim que o mod carrega.",hotkeys:"—"},
+  {name:"AzuAutoStore",version:"3.0.8",cats:["QoL","Automação"],
+    summary:"Deposita/organiza itens em baús próximos com um clique.",
+    usage:"Abra inventário e use o botão/atalho ‘Auto Store/Quick Stack’. Renomeie baús para filtrar categorias.",
+    hotkeys:"Atalho configurável no F1 › AutoStore."
+  },
+  {name:"AzuCraftyBoxes",version:"1.8.5",cats:["QoL"],
+    summary:"Craft/upgrade usando materiais nos baús ao alcance das bancadas.",usage:"Fique perto dos baús e craft normalmente.",hotkeys:"—"},
+  {name:"FirstPersonMode",version:"1.3.10",cats:["QoL","UI/HUD"],
+    summary:"Alterna para câmera em 1ª pessoa.",usage:"Use a tecla de alternância (configure no F1).",hotkeys:"Hotkey definível em F1 › FirstPersonMode."},
+  {name:"SaveCrossbowState",version:"1.0.2",cats:["QoL"],
+    summary:"Lembra se a besta estava carregada ao trocar de item.",usage:"—",hotkeys:"—"},
+  {name:"MagicPlugin (Black7ar)",version:"2.1.8",cats:["Conteúdo","Gameplay"],
+    summary:"Sistema de magia: cajados/varinhas/feitiços com Eitr.",usage:"Crie/ache equipamentos mágicos; gerencie Eitr em combates.",hotkeys:"Teclas de feitiços/ciclos no F1."},
+  {name:"RenegadeVikings",version:"1.3.9",cats:["Conteúdo"],
+    summary:"Novos inimigos/eventos/facções para dar variedade ao mundo.",usage:"Surgem naturalmente por bioma/eventos.",hotkeys:"—"},
+  {name:"Building Health Display",version:"0.7.1",cats:["UI/HUD","QoL"],
+    summary:"Mostra a vida das peças de construção quando mira nelas.",usage:"Aponte a peça para ver o HP.",hotkeys:"—"},
+  {name:"Newtonsoft.Json Detector",version:"1.0.0",cats:["Biblioteca"],summary:"Biblioteca JSON para outros mods.",usage:"—",hotkeys:"—"},
+  {name:"TranslationsHelper",version:"1.2.8",cats:["Biblioteca","QoL"],summary:"Ajuda a carregar/traduzir textos de mods.",usage:"—",hotkeys:"—"},
+  {name:"Smart Containers Mod",version:"1.7.0",cats:["QoL","Automação"],
+    summary:"Nomeie baús com prefixos/sufixos para auto‑classificar (ex: [mushroom], [ore]).",
+    usage:"Renomeie baús. Use ‘Quick Stack’ para enviar ao baú certo automaticamente.",
+    hotkeys:"— (integra com Quick Stack)"
+  },
+  {name:"Quick Stack - Store - Sort - Trash - Restock",version:"1.4.13",cats:["QoL","Automação"],
+    summary:"Botões/atalhos para organizar inventário rapidamente.",usage:"Abra inventário e use os botões de Stack/Sort/Restock/Trash.",hotkeys:"Defina no F1."
+  },
+  {name:"XUnity Resource Redirector",version:"2.1.0",cats:["Biblioteca"],summary:"Camada para redirecionar assets (necessário por vários mods).",usage:"—",hotkeys:"—"},
+  {name:"UnderTheRadar",version:"3.1.7",cats:["QoL","UI/HUD"],
+    summary:"Marca automaticamente no mapa recursos, criaturas, locais e minérios ao detectar.",
+    usage:"Proxime‑se de POIs; ícones aparecem no mapa/minimapa. Ajustes finos em F1.",
+    hotkeys:"F1 › UnderTheRadar."
+  },
+  {name:"BetterUI (Forever)",version:"2.5.9",cats:["UI/HUD"],summary:"UI mais informativa (barras, stats, números).",usage:"Ativo por padrão.",hotkeys:"—"},
+  {name:"Blacksmithing",version:"1.3.2",cats:["Conteúdo","Skills"],summary:"Habilidade/conteúdo de ferraria; progressão de craft.",usage:"Use forjas/bancadas; ganhe proficiência ao craftar.",hotkeys:"—"},
+  {name:"Creature Level & Loot Control (CLLC)",version:"4.6.4",cats:["Gameplay"],
+    summary:"Controla níveis (★) de criaturas, afixos e loot. Ajusta dificuldade do mundo.",
+    usage:"Configure taxas e limites no F1. Afeta spawns existentes.",hotkeys:"F1 › CLLC."
+  },
+  {name:"Farming (Skill)",version:"2.2.1",cats:["Skills"],summary:"Adiciona/expande habilidade de agricultura (colhe melhor com nível).",usage:"Plante/colha para evoluir a skill.",hotkeys:"—"},
+  {name:"Mining (Skill)",version:"1.1.5",cats:["Skills"],summary:"Habilidade de mineração (mais eficiência com nível).",usage:"Mine para upar a skill.",hotkeys:"—"},
+  {name:"Passive Powers",version:"1.1.3",cats:["Gameplay"],summary:"Poderes/benefícios passivos além dos poderes dos chefes.",usage:"Gerencie no menu do mod (F1).",hotkeys:"—"},
+  {name:"Sailing (Skill)",version:"1.1.7",cats:["Skills","QoL"],summary:"Habilidade de navegação; controles/qualidade de vida em barcos.",usage:"Navegue para evoluir.",hotkeys:"—"},
+  {name:"TargetPortal",version:"1.2.1",cats:["QoL"],summary:"Portais com destino selecionável via UI (sem renomear manual).",usage:"Construa o portal do mod e escolha o destino no menu.",hotkeys:"—"},
+  {name:"OdinArchitect",version:"1.5.7",cats:["Conteúdo","Construção"],summary:"Pacotão de peças/estética viking para construir castelos/cidades.",usage:"Abra o martelo e veja as novas abas/peças.",hotkeys:"—"},
+  {name:"OdinHorse",version:"1.5.0",cats:["Conteúdo"],summary:"Cavalos montáveis, sela e mecânicas de montar.",usage:"Crie sela adequada, aproxime‑se do cavalo e monte.",hotkeys:"—"},
+  {name:"Epic Loot",version:"0.11.6",cats:["Conteúdo","Gameplay"],
+    summary:"Itens com raridades/afixos (comum → lendário) em todo o jogo.",usage:"Mate inimigos/chefes, abra baús, forje. Balance configurável.",hotkeys:"F1 › Epic Loot."
+  },
+  {name:"Minimal Status Effects",version:"1.0.7",cats:["UI/HUD"],summary:"Limpa/compacta a área de efeitos (buffs/debuffs).",usage:"Ativo por padrão.",hotkeys:"—"},
+  {name:"Seasonality",version:"3.5.0",cats:["Gameplay","Ambiente"],
+    summary:"Estações do ano com clima/temperatura e impactos na agricultura.",usage:"O mundo alterna por estações; ajuste duração e penalidades em F1.",hotkeys:"F1 › Seasonality."
+  },
+  {name:"CameraTweaks",version:"1.3.1",cats:["QoL","UI/HUD"],summary:"FOV, distância e suavidade de câmera ajustáveis.",usage:"Ajuste no F1.",hotkeys:"—"},
+  {name:"DiscoveryPins",version:"0.3.10",cats:["QoL","UI/HUD"],summary:"Salva automaticamente pinos para descobertas no mapa.",usage:"Descubra algo e ele aparece como pin.",hotkeys:"—"},
+  {name:"AutomaticFermenters",version:"1.0.8",cats:["Automação"],summary:"Fermentadores automáticos: auto‑entrada/saída com baús próximos.",usage:"Coloque baús de matéria‑prima e de saída ao alcance.",hotkeys:"—"},
+  {name:"AutoRepair",version:"5.4.1600",cats:["QoL"],summary:"Repara tudo com um clique; pode reparar automaticamente ao abrir bancada.",usage:"Abra a bancada e repare de uma vez.",hotkeys:"—"},
+  {name:"Warfare",version:"1.8.9",cats:["Conteúdo"],summary:"Grande coleção de armas/estilos.",usage:"Receitas nas respectivas bancadas.",hotkeys:"—"},
+  {name:"Armory",version:"1.3.1",cats:["Conteúdo"],summary:"Armaduras/itens adicionais que integram a progressão.",usage:"Veja na forja/bancadas.",hotkeys:"—"},
+  {name:"Monstrum",version:"1.5.1",cats:["Conteúdo"],summary:"Novos monstros e variantes por bioma.",usage:"Spawns naturais, eventos e masmorras.",hotkeys:"—"},
+  {name:"WarfareFireAndIce",version:"2.0.8",cats:["Conteúdo"],summary:"Extensão elemental (fogo/gelo) para o pacote Warfare.",usage:"Novas receitas/afixos elementais.",hotkeys:"—"},
+  {name:"Wizardry (Therzie)",version:"1.1.8",cats:["Conteúdo","Gameplay"],summary:"Cajados/feitiços e progressão mágica adicional.",usage:"Fabrique cajados/consumíveis mágicos; gerencie Eitr.",hotkeys:"Config. no F1."},
+  {name:"Display Day & Time Countdown",version:"1.0.0",cats:["UI/HUD"],summary:"Mostra dia/horário/contagem no HUD.",usage:"Ativo por padrão.",hotkeys:"—"},
+  {name:"Shield Me Bruh!",version:"1.1.1",cats:["QoL","Gameplay"],summary:"Aprimora defesa/escudo com QoL (ajustes de bloco/indicadores).",usage:"—",hotkeys:"—"},
+  {name:"MassFarming",version:"1.11",cats:["Automação","QoL"],summary:"Plantar/colher em massa (área) com ferramentas apropriadas.",usage:"Use a enxada/cultivador com a função de área.",hotkeys:"Config. no F1."},
+  {name:"TorchesEternal",version:"0.2",cats:["QoL","Automação"],summary:"Tochas e luzes eternas (sem reabastecer).",usage:"Construa e esqueça do combustível.",hotkeys:"—"}
+];
+
+function linkThunderstore(name){
+  const q = encodeURIComponent(name + ' valheim');
+  return {
+    search:`https://thunderstore.io/c/valheim/?search=${q}`
+  }
+}
+function linkNexus(name){
+  const q = encodeURIComponent(name + ' valheim');
+  return {
+    search:`https://www.nexusmods.com/valheim/search/?gsearchtype=Mods&gsearch=${q}`
+  }
+}
+function linkGoogle(name){
+  const q = encodeURIComponent(name + ' valheim mod');
+  return `https://www.google.com/search?q=${q}`;
+}
+
+const wrap = document.getElementById('mods');
+
+function render(list){
+  wrap.innerHTML = '';
+  list.forEach(m =>{
+    const el = document.createElement('details');
+    el.className = 'mod';
+    const cats = (m.cats||[]).map(c=>`<span class="pill">${c}</span>`).join('');
+    el.innerHTML = `
+      <summary>
+        <span class="name">${m.name}</span>
+        <span class="version">&nbsp;v${m.version||'—'}</span>
+        <div class="chips">${cats}</div>
+      </summary>
+      <div class="body">
+        <div class="row">
+          <div class="card" style="flex:2 1 360px">
+            <h4>O que faz</h4>
+            <div class="muted">${m.summary||''}</div>
+            <div class="sep"></div>
+            <h4>Como usar</h4>
+            <div class="muted">${m.usage||''}</div>
+            <div class="sep"></div>
+            <h4>Atalhos</h4>
+            <div class="muted">${m.hotkeys||'—'}</div>
+          </div>
+          <div class="card">
+            <h4>Links</h4>
+            <div class="links">
+              <a href="${linkThunderstore(m.name).search}" target="_blank">Thunderstore (pesquisa)</a>
+              <a href="${linkNexus(m.name).search}" target="_blank">Nexus Mods (pesquisa)</a>
+              <a href="${linkGoogle(m.name)}" target="_blank">Google (pesquisa direta)</a>
+            </div>
+            <div class="sep"></div>
+            <div class="muted">Use o primeiro resultado correspondente ao nome/autor do mod. Se existir página oficial, favorite.</div>
+          </div>
+        </div>
+      </div>`;
+    wrap.appendChild(el);
+  });
+}
+render(DATA);
+
+// Busca
+const q = document.getElementById('q');
+q.addEventListener('input', ()=>{
+  const t = q.value.toLowerCase().trim();
+  if(!t) return render(DATA);
+  const out = DATA.filter(m =>
+    (m.name||'').toLowerCase().includes(t) ||
+    (m.summary||'').toLowerCase().includes(t) ||
+    (m.cats||[]).join(' ').toLowerCase().includes(t)
+  );
+  render(out);
+});
+
+// Expandir/Recolher
+const btnExp = document.getElementById('btn-exp');
+const btnCol = document.getElementById('btn-col');
+btnExp.onclick = ()=>{document.querySelectorAll('details.mod').forEach(d=>d.open=true)};
+btnCol.onclick = ()=>{document.querySelectorAll('details.mod').forEach(d=>d.open=false)};
+
+// Copiar lista
+document.getElementById('btn-copy').onclick = ()=>{
+  const list = DATA.map(m=>`${m.name} v${m.version||'—'}`).join('\n');
+  navigator.clipboard.writeText(list).then(()=>{
+    alert('Lista copiada!');
+  });
+};
+</script>
+</body>
+</html>
